@@ -5,7 +5,6 @@
 
 int main()
 {
-
     StudentManager manager;
 
     manager.printAll();
@@ -14,10 +13,18 @@ int main()
     manager.addStudent(Student("Aram", 150.0));
     manager.addStudent(Student("Mane", 88.5));
 
-    std::cout << "Student count: " << manager.getCount() << std::endl;
+    std::cout << "Student count: " << manager.getCount()
+        << std::endl;
 
     manager.printAll();
 
-    return 0;
+    std::cout << "Ani index: "
+        << manager.findStudentIndexByName("Ani")
+        << std::endl;
 
+    std::cout << "David index: "
+        << manager.findStudentIndexByName("David")
+        << std::endl;
+
+    return 0;
 }

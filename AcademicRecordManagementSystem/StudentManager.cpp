@@ -13,6 +13,20 @@ int StudentManager::getCount() const
 
 }
 
+int StudentManager::findStudentIndexByName(const std::string& name) const
+{
+	for (int i = 0; i < static_cast<int>(students.size()); i++) 
+	{
+		if (students[i].getName() == name)
+		{
+			return i;
+		}
+	}
+
+	return -1;
+
+}
+
 void StudentManager::addStudent(const Student& student)
 {
 	students.push_back(student);
@@ -23,7 +37,7 @@ void StudentManager::printAll() const
 {
 	if (students.empty())
 	{
-		std::cout << "No Students found."
+		std::cout << "No students found."
 			<< std::endl;
 
 	}

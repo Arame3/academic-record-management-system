@@ -2,6 +2,7 @@
 
 #include "Student.h"
 #include <vector>
+#include <string>
 
 
 class StudentManager
@@ -15,6 +16,8 @@ public:
 	StudentManager();
 
 	int getCount() const;
+
+	int findStudentIndexByName(const std::string& name) const;
 
 	void addStudent(const Student& student);
 
