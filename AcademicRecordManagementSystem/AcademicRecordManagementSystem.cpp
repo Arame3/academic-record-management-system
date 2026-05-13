@@ -26,5 +26,20 @@ int main()
         << manager.findStudentIndexByName("David")
         << std::endl;
 
+    bool removedAni = manager.removeStudentByName("Ani");
+
+    std::cout << "Removed Ani: " << removedAni << std::endl;
+
+    bool removedDavid = manager.removeStudentByName("David");
+
+    std::cout << "Removed David: " << removedDavid << std::endl;
+
+    std::cout << "Student count after removal: "
+        << manager.getCount()
+        << std::endl;
+
+    manager.printAll();
+
     return 0;
+
 }

@@ -21,6 +21,8 @@ public:
 
 	void addStudent(const Student& student);
 
+	bool removeStudentByName(const std::string& name);
+
 	void printAll() const;
 
 };

@@ -33,6 +33,21 @@ void StudentManager::addStudent(const Student& student)
 
 }
 
+bool StudentManager::removeStudentByName(const std::string& name)
+{
+	int index = findStudentIndexByName(name);
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	students.erase(students.begin() + index);
+
+	return true;
+
+}
+
 void StudentManager::printAll() const
 {
 	if (students.empty())
