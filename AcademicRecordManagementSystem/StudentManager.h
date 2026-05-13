@@ -15,13 +15,20 @@ public:
 
 	StudentManager();
 
+
 	int getCount() const;
 
+	double getAverageScore() const;
+
 	int findStudentIndexByName(const std::string& name) const;
+
+	int findBestStudentIndex() const;
 
 	void addStudent(const Student& student);
 
 	bool removeStudentByName(const std::string& name);
+
+	bool updateStudentScore(const std::string& name, double newScore);
 
 	void printAll() const;
 

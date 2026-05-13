@@ -13,6 +13,25 @@ int StudentManager::getCount() const
 
 }
 
+double StudentManager::getAverageScore() const
+{
+	if (students.empty())
+	{
+		return 0.0;
+	}
+
+	double sum = 0.0;
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < static_cast<int>(students.size()); i++)
+	{
+		sum += students[i].getScore();
+	}
+
+	return sum / count;
+
+}
+
 int StudentManager::findStudentIndexByName(const std::string& name) const
 {
 	for (int i = 0; i < static_cast<int>(students.size()); i++) 
@@ -24,6 +43,27 @@ int StudentManager::findStudentIndexByName(const std::string& name) const
 	}
 
 	return -1;
+
+}
+
+int StudentManager::findBestStudentIndex() const
+{
+	if (students.empty())
+	{
+		return -1;
+	}
+
+	int bestIndex = 0;
+
+	for (int i = 1; i < static_cast<int>(students.size()); i++)
+	{
+		if (students[i].getScore() > students[bestIndex].getScore())
+		{
+			bestIndex = i;
+		}
+	}
+
+	return bestIndex;
 
 }
 
@@ -43,6 +83,21 @@ bool StudentManager::removeStudentByName(const std::string& name)
 	}
 
 	students.erase(students.begin() + index);
+
+	return true;
+
+}
+
+bool StudentManager::updateStudentScore(const std::string& name, double newScore)
+{
+	int index = findStudentIndexByName(name);
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	students[index].setScore(newScore);
 
 	return true;
 
