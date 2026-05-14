@@ -18,6 +18,8 @@ public:
 
 	int getCount() const;
 
+	bool isEmpty() const;
+
 	double getAverageScore() const;
 
 	int findStudentIndexByName(const std::string& name) const;

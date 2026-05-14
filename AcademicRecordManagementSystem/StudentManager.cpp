@@ -13,9 +13,15 @@ int StudentManager::getCount() const
 
 }
 
+bool StudentManager::isEmpty() const
+{
+	return students.empty();
+
+}
+
 double StudentManager::getAverageScore() const
 {
-	if (students.empty())
+	if (isEmpty())
 	{
 		return 0.0;
 	}
@@ -23,7 +29,7 @@ double StudentManager::getAverageScore() const
 	double sum = 0.0;
 	int count = static_cast<int>(students.size());
 
-	for (int i = 0; i < static_cast<int>(students.size()); i++)
+	for (int i = 0; i < count; i++)
 	{
 		sum += students[i].getScore();
 	}
@@ -32,9 +38,13 @@ double StudentManager::getAverageScore() const
 
 }
 
+
+
 int StudentManager::findStudentIndexByName(const std::string& name) const
 {
-	for (int i = 0; i < static_cast<int>(students.size()); i++) 
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < count; i++) 
 	{
 		if (students[i].getName() == name)
 		{
@@ -48,7 +58,7 @@ int StudentManager::findStudentIndexByName(const std::string& name) const
 
 int StudentManager::findBestStudentIndex() const
 {
-	if (students.empty())
+	if (isEmpty())
 	{
 		return -1;
 	}
@@ -105,7 +115,7 @@ bool StudentManager::updateStudentScore(const std::string& name, double newScore
 
 void StudentManager::printAll() const
 {
-	if (students.empty())
+	if (isEmpty())
 	{
 		std::cout << "No students found."
 			<< std::endl;
