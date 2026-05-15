@@ -1,45 +1,49 @@
 ﻿#include <iostream>
+#include <string>
+
 #include "Student.h"
 #include "StudentManager.h"
 
 
+void printSectionTitle(const std::string& title)
+{
+    std::cout << "\n========================================================================================================================" << std::endl;
+    std::cout << "   " << title << std::endl;
+    std::cout << "========================================================================================================================" << std::endl;
+
+}
+
+
 int main()
 {
-
-    std::cout << "========================================================================================================================" << std::endl;
-    std::cout << "                                Academic Record Management System" << std::endl;
-    std::cout << "========================================================================================================================" << std::endl;
+    printSectionTitle("Academic Record Management System");
 
     StudentManager manager;
 
-    std::cout << "\nInitial student list:" << std::endl;
-    
+    printSectionTitle("Initial Student List");
     manager.printAll();
 
-    std::cout << "\nAdding students..." << std::endl;
+    printSectionTitle("Adding Students");
 
     manager.addStudent(Student("Ani", 95.5));
-   
-    std::cout << "Student added: Ani" << std::endl;
+    std::cout << "Student added successfully: Ani" << std::endl;
 
     manager.addStudent(Student("Aram", 150.0));
-    
-    std::cout << "Student added: Aram" << std::endl;
-    std::cout << "Note: Aram had an invalid score, so it was set to 0." << std::endl;
+    std::cout << "Student added successfully: Aram" << std::endl;
+    std::cout << "Warning: Invalid score for Aram was converted to 0." << std::endl;
 
     manager.addStudent(Student("Mane", 88.5));
-    
-    std::cout << "Student added: Mane" << std::endl;
+    std::cout << "Student added successfully: Mane" << std::endl;
 
-    std::cout << "\nCurrent student count: "
+    printSectionTitle("Current Students");
+
+    std::cout << "Current student count: "
         << manager.getCount()
         << std::endl;
 
-    std::cout << "\nCurrent students:" << std::endl;
-    
     manager.printAll();
 
-    std::cout << "\nSearching students..." << std::endl;
+    printSectionTitle("Searching Students");
 
     int aniIndex = manager.findStudentIndexByName("Ani");
 
@@ -63,7 +67,7 @@ int main()
         std::cout << "David was not found." << std::endl;
     }
 
-    std::cout << "\nUpdating student scores..." << std::endl;
+    printSectionTitle("Updating Student Scores");
 
     if (manager.updateStudentScore("Mane", 99.0))
     {
@@ -92,12 +96,11 @@ int main()
         std::cout << "Could not update Aram. Student not found." << std::endl;
     }
 
-    std::cout << "\nStudents after updates:" << std::endl;
-    
+    printSectionTitle("Students After Updates");
     manager.printAll();
 
+    printSectionTitle("Statistics");
 
-    std::cout << "\nStatistics:" << std::endl;
     std::cout << "Average score: "
         << manager.getAverageScore()
         << std::endl;
@@ -106,7 +109,7 @@ int main()
         << manager.findBestStudentIndex()
         << std::endl;
 
-    std::cout << "\nRemoving students..." << std::endl;
+    printSectionTitle("Removing Students");
 
     if (manager.removeStudentByName("Ani"))
     {
@@ -126,15 +129,16 @@ int main()
         std::cout << "Could not remove David. Student not found." << std::endl;
     }
 
-    std::cout << "\nStudent count after removal: "
+    std::cout << "Student count after removal: "
         << manager.getCount()
         << std::endl;
 
-    std::cout << "\nFinal student list:" << std::endl;
-    
+    printSectionTitle("Final Student List");
     manager.printAll();
 
     std::cout << "\nProgram finished successfully." << std::endl;
 
+
     return 0;
+
 }

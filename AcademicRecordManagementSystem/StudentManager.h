@@ -32,6 +32,9 @@ public:
 
 	bool updateStudentScore(const std::string& name, double newScore);
 
+
+	void printBestStudent() const;
+
 	void printAll() const;
 
 };

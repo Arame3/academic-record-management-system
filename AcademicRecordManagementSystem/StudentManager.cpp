@@ -113,6 +113,26 @@ bool StudentManager::updateStudentScore(const std::string& name, double newScore
 
 }
 
+
+
+void StudentManager::printBestStudent() const
+{
+	int bestIndex = findBestStudentIndex();
+
+	if (bestIndex == -1)
+	{
+		std::cout << "No students available to determine the best student."
+			<< std::endl;
+
+		return;
+	}
+
+	std::cout << "Best student: "
+		<< students[bestIndex]
+		<< std::endl;
+
+}
+
 void StudentManager::printAll() const
 {
 	if (isEmpty())
@@ -121,7 +141,6 @@ void StudentManager::printAll() const
 			<< std::endl;
 
 	}
-
 	else
 	{
 		for (int i = 0; i < static_cast<int>(students.size()); i++)
