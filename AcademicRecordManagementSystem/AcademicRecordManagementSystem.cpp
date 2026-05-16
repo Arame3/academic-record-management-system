@@ -163,20 +163,8 @@ int main()
     printSectionTitle("Students After Score Updates");
     manager.printAllStudentsWithHeader();
 
-    printSectionTitle("Statistics");
-    manager.printStatistics(passingScore);
-
-    printSectionTitle("Passed Students");
-    manager.printPassedStudents(passingScore);
-
-    printSectionTitle("Failed Students");
-    manager.printFailedStudents(passingScore);
-
-    printSectionTitle("Excellent Students");
-    manager.printExcellentStudents(excellentScore);
-
-    printSectionTitle("At-Risk Students");
-    manager.printAtRiskStudents(passingScore);
+    printSectionTitle("Academic Report");
+    manager.printAcademicReport(passingScore, excellentScore);
 
     printSectionTitle("Removing Students");
 

@@ -47,6 +47,12 @@ bool Student::hasPassingScore(double passingScore) const
 
 }
 
+bool Student::hasExcellentScore(double excellentScore) const
+{
+	return score >= excellentScore;
+
+}
+
 
 
 void Student::setId(int id)

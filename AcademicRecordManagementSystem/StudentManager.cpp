@@ -146,12 +146,11 @@ int StudentManager::getExcellentStudentCount(double excellentScore) const
 
 	for (int i = 0; i < size; i++)
 	{
-		if (students[i].getScore() >= excellentScore)
+		if (students[i].hasExcellentScore(excellentScore))
 		{
 			count++;
 		}
 	}
-
 
 	return count;
 
@@ -470,7 +469,7 @@ void StudentManager::printExcellentStudents(double excellentScore) const
 
 	for (int i = 0; i < count; i++)
 	{
-		if (students[i].getScore() >= excellentScore)
+		if (students[i].hasExcellentScore(excellentScore))
 		{
 			std::cout << students[i]
 				<< std::endl;
@@ -565,6 +564,36 @@ void StudentManager::printStatistics(double passingScore) const
 		<< std::endl;
 
 	printBestStudent();
+
+}
+
+void StudentManager::printAcademicReport(double passingScore, double excellentScore) const
+{
+	if (isEmpty())
+	{
+		std::cout << "No academic report available. The student list is empty."
+			<< std::endl;
+
+		return;
+	}
+
+	std::cout << "\nAcademic Report Summary" << std::endl;
+	std::cout << "-----------------------" << std::endl;
+
+
+	printStatistics(passingScore);
+
+	std::cout << "\nPassed Students:" << std::endl;
+	printPassedStudents(passingScore);
+
+	std::cout << "\nFailed Students:" << std::endl;
+	printFailedStudents(passingScore);
+
+	std::cout << "\nExcellent Students:" << std::endl;
+	printExcellentStudents(excellentScore);
+
+	std::cout << "\nAt-Risk Students:" << std::endl;
+	printAtRiskStudents(passingScore);
 
 }
 

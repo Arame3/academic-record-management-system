@@ -31,6 +31,8 @@ public:
 
     bool hasPassingScore(double passingScore) const;
 
+    bool hasExcellentScore(double excellentScore) const;
+
 
 
 

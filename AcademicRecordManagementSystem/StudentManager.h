@@ -82,6 +82,8 @@ public:
 
 	void printStatistics(double passingScore) const;
 
+	void printAcademicReport(double passingScore, double excellentScore) const;
+
 	void printAll() const;
 
 };
