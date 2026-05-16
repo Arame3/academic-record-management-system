@@ -35,6 +35,8 @@ public:
 
 	void printBestStudent() const;
 
+	void printStatistics() const;
+
 	void printAll() const;
 
 };

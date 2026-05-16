@@ -101,9 +101,7 @@ int main()
 
     printSectionTitle("Statistics");
 
-    std::cout << "Average score: "
-        << manager.getAverageScore()
-        << std::endl;
+    manager.printStatistics();
 
     std::cout << "Best student index: "
         << manager.findBestStudentIndex()

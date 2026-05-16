@@ -133,6 +133,28 @@ void StudentManager::printBestStudent() const
 
 }
 
+void StudentManager::printStatistics() const
+{
+	if (isEmpty())
+	{
+		std::cout << "No statistics available. The student list is empty."
+			<< std::endl;
+
+		return;
+	}
+
+	std::cout << "Student count: "
+		<< getCount()
+		<< std::endl;
+
+	std::cout << "Average score: "
+		<< getAverageScore()
+		<< std::endl;
+
+	printBestStudent();
+
+}
+
 void StudentManager::printAll() const
 {
 	if (isEmpty())
