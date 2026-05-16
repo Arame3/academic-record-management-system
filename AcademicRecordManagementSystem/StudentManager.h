@@ -22,6 +22,11 @@ public:
 
 	double getAverageScore() const;
 
+	int getPassedStudentCount(double passingScore) const;
+
+	int getFailedStudentCount(double passingScore) const;
+
+
 
 	int findStudentIndexById(int id) const;
 

@@ -41,6 +41,14 @@ double Student::getScore() const
 
 
 
+bool Student::hasPassingScore(double passingScore) const
+{
+	return score >= passingScore;
+
+}
+
+
+
 void Student::setId(int id)
 {
 	if (id > 0)

@@ -28,6 +28,12 @@ public:
     double getScore() const;
 
 
+
+    bool hasPassingScore(double passingScore) const;
+
+
+
+
     void setId(int id);
 
     void setName(const std::string& name);

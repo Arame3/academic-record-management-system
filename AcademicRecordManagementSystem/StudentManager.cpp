@@ -42,6 +42,42 @@ double StudentManager::getAverageScore() const
 
 }
 
+int StudentManager::getPassedStudentCount(double passingScore) const
+{
+	int count = 0;
+
+	int size = static_cast<int>(students.size());
+
+	for (int i = 0; i < size; i++)
+	{
+		if (students[i].hasPassingScore(passingScore))
+		{
+			count++;
+		}
+	}
+
+	return count; 
+
+}
+
+int StudentManager::getFailedStudentCount(double passingScore) const
+{
+	int count = 0;
+
+	int size = static_cast<int>(students.size());
+
+	for (int i = 0; i < size; i++)
+	{
+		if (!students[i].hasPassingScore(passingScore))
+		{
+			count++;
+		}
+	}
+
+	return count;
+
+}
+
 
 
 int StudentManager::findStudentIndexById(int id) const
@@ -235,7 +271,7 @@ void StudentManager::printAllStudentsWithHeader() const
 	printStudentCount();
 
 	printAll();
-
+	 
 }
 
 void StudentManager::printStatistics() const
@@ -248,12 +284,26 @@ void StudentManager::printStatistics() const
 		return;
 	}
 
+	double passingScore = 50.0;
+
 	std::cout << "Student count: "
 		<< getCount()
 		<< std::endl;
 
 	std::cout << "Average score: "
 		<< getAverageScore()
+		<< std::endl;
+
+	std::cout << "Passing score: "
+		<< passingScore
+		<< std::endl;
+
+	std::cout << "Passed students: "
+		<< getPassedStudentCount(passingScore)
+		<< std::endl;
+
+	std::cout << "Failed students: "
+		<< getFailedStudentCount(passingScore)
 		<< std::endl;
 
 	printBestStudent();
