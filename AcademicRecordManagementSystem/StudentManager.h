@@ -26,6 +26,12 @@ public:
 
 	int getFailedStudentCount(double passingScore) const;
 
+	double getHighestScore() const;
+
+	double getLowestScore() const;
+
+	double getPassRate(double passingScore) const;
+
 
 
 	int findStudentIndexById(int id) const;

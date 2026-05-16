@@ -78,6 +78,60 @@ int StudentManager::getFailedStudentCount(double passingScore) const
 
 }
 
+double StudentManager::getHighestScore() const
+{
+	if (isEmpty())
+	{
+		return 0.0;
+	}
+
+	int bestIndex = findBestStudentIndex();
+
+
+	return students[bestIndex].getScore();
+
+}
+
+double StudentManager::getLowestScore() const
+{
+	if (isEmpty())
+	{
+		return 0.0;
+	}
+
+	int lowestIndex = 0;
+
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < count; i++)
+	{
+		if (students[i].getScore() < students[lowestIndex].getScore())
+		{
+			lowestIndex = i;
+		}
+	}
+
+
+	return students[lowestIndex].getScore();
+
+}
+
+double StudentManager::getPassRate(double passingScore) const
+{
+	if (isEmpty())
+	{
+		return 0.0;
+	}
+
+	int passedCount = getPassedStudentCount(passingScore);
+
+	int totalCount = getCount();
+
+
+	return (static_cast<double>(passedCount) / totalCount) * 100.0;
+
+}
+
 
 
 int StudentManager::findStudentIndexById(int id) const
@@ -347,9 +401,9 @@ void StudentManager::printStatistics(double passingScore) const
 		std::cout << "No statistics available. The student list is empty."
 			<< std::endl;
 
+
 		return;
 	}
-
 
 	std::cout << "Student count: "
 		<< getCount()
@@ -357,6 +411,14 @@ void StudentManager::printStatistics(double passingScore) const
 
 	std::cout << "Average score: "
 		<< getAverageScore()
+		<< std::endl;
+
+	std::cout << "Highest score: "
+		<< getHighestScore()
+		<< std::endl;
+
+	std::cout << "Lowest score: "
+		<< getLowestScore()
 		<< std::endl;
 
 	std::cout << "Passing score: "
@@ -369,6 +431,11 @@ void StudentManager::printStatistics(double passingScore) const
 
 	std::cout << "Failed students: "
 		<< getFailedStudentCount(passingScore)
+		<< std::endl;
+
+	std::cout << "Pass rate: "
+		<< getPassRate(passingScore)
+		<< "%"
 		<< std::endl;
 
 	printBestStudent();

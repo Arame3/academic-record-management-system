@@ -11,7 +11,6 @@ static void printSectionTitle(const std::string& title)
     std::cout << "\n============================================================" << std::endl;
     std::cout << "                    " << title << std::endl;
     std::cout << "============================================================" << std::endl;
-
 }
 
 
@@ -34,18 +33,62 @@ void addStudentAndPrintResult(StudentManager& manager, const Student& student)
             << ". Invalid or duplicate ID."
             << std::endl;
     }
-
 }
+
+
+
+void updateStudentScoreAndPrintResult(StudentManager& manager, int id, double newScore)
+{
+    if (manager.updateStudentScoreById(id, newScore))
+    {
+        std::cout << "Successfully updated score for student ID "
+            << id
+            << "."
+            << std::endl;
+    }
+    else
+    {
+        std::cout << "Could not update student ID "
+            << id
+            << ". Student not found."
+            << std::endl;
+    }
+}
+
+
+
+void removeStudentAndPrintResult(StudentManager& manager, int id)
+{
+    if (manager.removeStudentById(id))
+    {
+        std::cout << "Successfully removed student with ID "
+            << id
+            << "."
+            << std::endl;
+    }
+    else
+    {
+        std::cout << "Could not remove student with ID "
+            << id
+            << ". Student not found."
+            << std::endl;
+    }
+}
+
 
 
 int main()
 {
     printSectionTitle("Academic Record Management System");
 
+
     StudentManager manager;
+
 
     printSectionTitle("Initial Student List");
     manager.printAllStudentsWithHeader();
+
+
 
     printSectionTitle("Adding Students");
 
@@ -63,7 +106,10 @@ int main()
 
     addStudentAndPrintResult(manager, Student(1, "Duplicate Ani", 70.0));
 
+
+
     printSectionTitle("Current Students");
+
     manager.printAllStudentsWithHeader();
 
     printSectionTitle("Searching Students");
@@ -74,32 +120,13 @@ int main()
 
     printSectionTitle("Updating Student Scores");
 
-    if (manager.updateStudentScoreById(3, 99.0))
-    {
-        std::cout << "Successfully updated score for student ID 3." << std::endl;
-    }
-    else
-    {
-        std::cout << "Could not update student ID 3. Student not found." << std::endl;
-    }
+    updateStudentScoreAndPrintResult(manager, 3, 99.0);
 
-    if (manager.updateStudentScoreById(999, 90.0))
-    {
-        std::cout << "Successfully updated score for student ID 999." << std::endl;
-    }
-    else
-    {
-        std::cout << "Could not update student ID 999. Student not found." << std::endl;
-    }
+    updateStudentScoreAndPrintResult(manager, 999, 90.0);
 
-    if (manager.updateStudentScoreById(2, 150.0))
-    {
-        std::cout << "Updated score for student ID 2, but invalid score was converted to 0." << std::endl;
-    }
-    else
-    {
-        std::cout << "Could not update student ID 2. Student not found." << std::endl;
-    }
+    updateStudentScoreAndPrintResult(manager, 2, 150.0);
+    std::cout << "Note: Invalid score for student ID 2 was converted to 0." << std::endl;
+
 
     printSectionTitle("Students After Updates");
     manager.printAllStudentsWithHeader();
@@ -117,23 +144,9 @@ int main()
 
     printSectionTitle("Removing Students");
 
-    if (manager.removeStudentById(1))
-    {
-        std::cout << "Successfully removed student with ID 1." << std::endl;
-    }
-    else
-    {
-        std::cout << "Could not remove student with ID 1. Student not found." << std::endl;
-    }
+    removeStudentAndPrintResult(manager, 1);
 
-    if (manager.removeStudentById(999))
-    {
-        std::cout << "Successfully removed student with ID 999." << std::endl;
-    }
-    else
-    {
-        std::cout << "Could not remove student with ID 999. Student not found." << std::endl;
-    }
+    removeStudentAndPrintResult(manager, 999);
 
     printSectionTitle("Final Student List");
     manager.printAllStudentsWithHeader();
