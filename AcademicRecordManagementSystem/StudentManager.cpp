@@ -23,6 +23,12 @@ bool StudentManager::isEmpty() const
 
 }
 
+bool StudentManager::isScoreValid(double score) const
+{
+	return score >= 0.0 && score <= 100.0;
+
+}
+
 double StudentManager::getAverageScore() const
 {
 	if (isEmpty())
@@ -103,7 +109,7 @@ double StudentManager::getLowestScore() const
 
 	int count = static_cast<int>(students.size());
 
-	for (int i = 0; i < count; i++)
+	for (int i = 1; i < count; i++)
 	{
 		if (students[i].getScore() < students[lowestIndex].getScore())
 		{
@@ -129,6 +135,44 @@ double StudentManager::getPassRate(double passingScore) const
 
 
 	return (static_cast<double>(passedCount) / totalCount) * 100.0;
+
+}
+
+int StudentManager::getExcellentStudentCount(double excellentScore) const
+{
+	int count = 0;
+
+	int size = static_cast<int>(students.size());
+
+	for (int i = 0; i < size; i++)
+	{
+		if (students[i].getScore() >= excellentScore)
+		{
+			count++;
+		}
+	}
+
+
+	return count;
+
+}
+
+int StudentManager::getAtRiskStudentCount(double passingScore) const
+{
+	int count = 0;
+
+	int size = static_cast<int>(students.size());
+
+	for (int i = 0; i < size; i++)
+	{
+		if (!students[i].hasPassingScore(passingScore))
+		{
+			count++;
+		}
+	}
+
+
+	return count;
 
 }
 
@@ -273,6 +317,22 @@ bool StudentManager::updateStudentScore(const std::string& name, double newScore
 
 }
 
+bool StudentManager::updateStudentNameById(int id, const std::string& newName)
+{
+	int index = findStudentIndexById(id);
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	students[index].setName(newName);
+
+
+	return true;
+
+}
+
 
 
 void StudentManager::printStudentById(int id) const
@@ -392,6 +452,72 @@ void StudentManager::printAllStudentsWithHeader() const
 
 	printAll();
 	 
+}
+
+void StudentManager::printExcellentStudents(double excellentScore) const
+{
+	if (isEmpty())
+	{
+		std::cout << "No students found."
+			<< std::endl;
+
+		return;
+	}
+
+	bool found = false;
+
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < count; i++)
+	{
+		if (students[i].getScore() >= excellentScore)
+		{
+			std::cout << students[i]
+				<< std::endl;
+
+			found = true;
+		}
+	}
+
+	if (!found)
+	{
+		std::cout << "No excellent students found."
+			<< std::endl;
+	}
+
+}
+
+void StudentManager::printAtRiskStudents(double passingScore) const
+{
+	if (isEmpty())
+	{
+		std::cout << "No students found."
+			<< std::endl;
+
+		return;
+	}
+
+	bool found = false;
+
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < count; i++)
+	{
+		if (!students[i].hasPassingScore(passingScore))
+		{
+			std::cout << students[i]
+				<< std::endl;
+
+			found = true;
+		}
+	}
+
+	if (!found)
+	{
+		std::cout << "No at-risk students found."
+			<< std::endl;
+	}
+
 }
 
 void StudentManager::printStatistics(double passingScore) const

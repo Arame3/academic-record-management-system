@@ -20,6 +20,8 @@ public:
 
 	bool isEmpty() const;
 
+	bool isScoreValid(double score) const;
+
 	double getAverageScore() const;
 
 	int getPassedStudentCount(double passingScore) const;
@@ -31,6 +33,10 @@ public:
 	double getLowestScore() const;
 
 	double getPassRate(double passingScore) const;
+
+	int getExcellentStudentCount(double excellentScore) const;
+
+	int getAtRiskStudentCount(double passingScore) const;
 
 
 
@@ -54,6 +60,8 @@ public:
 
 	bool updateStudentScore(const std::string& name, double newScore);
 
+	bool updateStudentNameById(int id, const std::string& newName);
+
 
 
 	void printStudentById(int id) const;
@@ -67,6 +75,10 @@ public:
 	void printFailedStudents(double passingScore) const;
 
 	void printAllStudentsWithHeader() const;
+
+	void printExcellentStudents(double excellentScore) const;
+
+	void printAtRiskStudents(double passingScore) const;
 
 	void printStatistics(double passingScore) const;
 

@@ -11,6 +11,7 @@ static void printSectionTitle(const std::string& title)
     std::cout << "\n============================================================" << std::endl;
     std::cout << "                    " << title << std::endl;
     std::cout << "============================================================" << std::endl;
+
 }
 
 
@@ -33,6 +34,28 @@ void addStudentAndPrintResult(StudentManager& manager, const Student& student)
             << ". Invalid or duplicate ID."
             << std::endl;
     }
+
+}
+
+
+
+void updateStudentNameAndPrintResult(StudentManager& manager, int id, const std::string& newName)
+{
+    if (manager.updateStudentNameById(id, newName))
+    {
+        std::cout << "Successfully updated name for student ID "
+            << id
+            << "."
+            << std::endl;
+    }
+    else
+    {
+        std::cout << "Could not update name for student ID "
+            << id
+            << ". Student not found."
+            << std::endl;
+    }
+
 }
 
 
@@ -48,11 +71,12 @@ void updateStudentScoreAndPrintResult(StudentManager& manager, int id, double ne
     }
     else
     {
-        std::cout << "Could not update student ID "
+        std::cout << "Could not update score for student ID "
             << id
             << ". Student not found."
             << std::endl;
     }
+
 }
 
 
@@ -73,6 +97,7 @@ void removeStudentAndPrintResult(StudentManager& manager, int id)
             << ". Student not found."
             << std::endl;
     }
+
 }
 
 
@@ -81,14 +106,13 @@ int main()
 {
     printSectionTitle("Academic Record Management System");
 
-
     StudentManager manager;
 
+    double passingScore = 50.0;
+    double excellentScore = 90.0;
 
     printSectionTitle("Initial Student List");
     manager.printAllStudentsWithHeader();
-
-
 
     printSectionTitle("Adding Students");
 
@@ -106,10 +130,7 @@ int main()
 
     addStudentAndPrintResult(manager, Student(1, "Duplicate Ani", 70.0));
 
-
-
     printSectionTitle("Current Students");
-
     manager.printAllStudentsWithHeader();
 
     printSectionTitle("Searching Students");
@@ -117,6 +138,18 @@ int main()
     manager.printStudentById(1);
 
     manager.printStudentById(999);
+
+    printSectionTitle("Updating Student Names");
+
+    updateStudentNameAndPrintResult(manager, 4, "Narek");
+
+    updateStudentNameAndPrintResult(manager, 999, "Missing Student");
+
+    updateStudentNameAndPrintResult(manager, 3, "");
+    std::cout << "Note: Empty name for student ID 3 was converted to Unknown." << std::endl;
+
+    printSectionTitle("Students After Name Updates");
+    manager.printAllStudentsWithHeader();
 
     printSectionTitle("Updating Student Scores");
 
@@ -127,11 +160,8 @@ int main()
     updateStudentScoreAndPrintResult(manager, 2, 150.0);
     std::cout << "Note: Invalid score for student ID 2 was converted to 0." << std::endl;
 
-
-    printSectionTitle("Students After Updates");
+    printSectionTitle("Students After Score Updates");
     manager.printAllStudentsWithHeader();
-
-    double passingScore = 50.0;
 
     printSectionTitle("Statistics");
     manager.printStatistics(passingScore);
@@ -141,6 +171,12 @@ int main()
 
     printSectionTitle("Failed Students");
     manager.printFailedStudents(passingScore);
+
+    printSectionTitle("Excellent Students");
+    manager.printExcellentStudents(excellentScore);
+
+    printSectionTitle("At-Risk Students");
+    manager.printAtRiskStudents(passingScore);
 
     printSectionTitle("Removing Students");
 
