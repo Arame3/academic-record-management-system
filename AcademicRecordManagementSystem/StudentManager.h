@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Student.h"
 #include <vector>
 #include <string>
 
+#include "Student.h"
 
 class StudentManager
 {
@@ -22,13 +22,23 @@ public:
 
 	double getAverageScore() const;
 
+
+	int findStudentIndexById(int id) const;
+
+	bool hasStudentById(int id) const;
+
 	int findStudentIndexByName(const std::string& name) const;
 
 	int findBestStudentIndex() const;
 
-	void addStudent(const Student& student);
+
+	bool addStudent(const Student& student);
+
+	bool removeStudentById(int id);
 
 	bool removeStudentByName(const std::string& name);
+
+	bool updateStudentScoreById(int id, double newScore);
 
 	bool updateStudentScore(const std::string& name, double newScore);
 

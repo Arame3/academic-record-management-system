@@ -1,11 +1,15 @@
-#include "StudentManager.h"
 #include <iostream>
+
+#include "StudentManager.h"
+
 
 
 StudentManager::StudentManager()
 {
 
 }
+
+
 
 int StudentManager::getCount() const
 {
@@ -39,6 +43,28 @@ double StudentManager::getAverageScore() const
 }
 
 
+
+int StudentManager::findStudentIndexById(int id) const
+{
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < count; i++)
+	{
+		if (students[i].getId() == id)
+		{
+			return i;
+		}
+	}
+
+	return -1;
+
+}
+
+bool StudentManager::hasStudentById(int id) const
+{
+	return findStudentIndexById(id) != -1;
+
+}
 
 int StudentManager::findStudentIndexByName(const std::string& name) const
 {
@@ -77,9 +103,38 @@ int StudentManager::findBestStudentIndex() const
 
 }
 
-void StudentManager::addStudent(const Student& student)
+
+
+bool StudentManager::addStudent(const Student& student)
 {
+	if (student.getId() == 0)
+	{
+		return false;
+	}
+
+	if (hasStudentById(student.getId()))
+	{
+		return false;
+	}
+
 	students.push_back(student);
+
+	return true;
+
+}
+
+bool StudentManager::removeStudentById(int id)
+{
+	int index = findStudentIndexById(id);
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	students.erase(students.begin() + index);
+
+	return true;
 
 }
 
@@ -93,6 +148,21 @@ bool StudentManager::removeStudentByName(const std::string& name)
 	}
 
 	students.erase(students.begin() + index);
+
+	return true;
+
+}
+
+bool StudentManager::updateStudentScoreById(int id, double newScore) 
+{
+	int index = findStudentIndexById(id);
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	students[index].setScore(newScore);
 
 	return true;
 

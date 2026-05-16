@@ -7,6 +7,8 @@ class Student
 {
 
 private:
+
+    int id;
     
     std::string name;
 
@@ -16,15 +18,17 @@ public:
 
     Student();
 
-    Student(const std::string& name, double score);
+    Student(int id, const std::string& name, double score);
 
 
+    int getId() const;
 
     std::string getName() const;
 
     double getScore() const;
 
 
+    void setId(int id);
 
     void setName(const std::string& name);
 

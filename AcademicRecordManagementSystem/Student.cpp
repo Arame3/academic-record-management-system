@@ -3,31 +3,52 @@
 
 
 Student::Student()
-	: name("Unknown"), score(0.0)
+	: id(0), name("Unknown"), score(0.0)
 {
 
 }
 
-Student::Student(const std::string& name, double score)
-	: name(name), score(0.0)
+Student::Student(int id, const std::string& name, double score)
+	: id(0), name(name), score(0.0)
 {
+	setId(id);
+
 	setScore(score);
 
 }
 
 
 
-std::string Student::getName()
-	const
+int Student::getId() const
+{
+	return id;
+
+}
+
+std::string Student::getName() const
 {
 	return name;
 
 }
 
-double Student::getScore()
-	const
+double Student::getScore() const
 {
 	return score;
+
+}
+
+
+
+void Student::setId(int id)
+{
+	if (id > 0)
+	{
+		this->id = id;
+	}
+	else
+	{
+		this->id = 0;
+	}
 
 }
 

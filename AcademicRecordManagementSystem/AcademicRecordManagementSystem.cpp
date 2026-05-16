@@ -5,12 +5,11 @@
 #include "StudentManager.h"
 
 
-void printSectionTitle(const std::string& title)
+static void printSectionTitle(const std::string& title)
 {
-    std::cout << "\n========================================================================================================================" << std::endl;
-    std::cout << "   " << title << std::endl;
-    std::cout << "========================================================================================================================" << std::endl;
-
+    std::cout << "\n========================================" << std::endl;
+    std::cout << title << std::endl;
+    std::cout << "========================================" << std::endl;
 }
 
 
@@ -25,15 +24,42 @@ int main()
 
     printSectionTitle("Adding Students");
 
-    manager.addStudent(Student("Ani", 95.5));
-    std::cout << "Student added successfully: Ani" << std::endl;
+    if (manager.addStudent(Student(1, "Ani", 95.5)))
+    {
+        std::cout << "Student added successfully: Ani" << std::endl;
+    }
+    else
+    {
+        std::cout << "Could not add Ani. Invalid or duplicate ID." << std::endl;
+    }
 
-    manager.addStudent(Student("Aram", 150.0));
-    std::cout << "Student added successfully: Aram" << std::endl;
-    std::cout << "Warning: Invalid score for Aram was converted to 0." << std::endl;
+    if (manager.addStudent(Student(2, "Aram", 150.0)))
+    {
+        std::cout << "Student added successfully: Aram" << std::endl;
+        std::cout << "Warning: Invalid score for Aram was converted to 0." << std::endl;
+    }
+    else
+    {
+        std::cout << "Could not add Aram. Invalid or duplicate ID." << std::endl;
+    }
 
-    manager.addStudent(Student("Mane", 88.5));
-    std::cout << "Student added successfully: Mane" << std::endl;
+    if (manager.addStudent(Student(3, "Mane", 88.5)))
+    {
+        std::cout << "Student added successfully: Mane" << std::endl;
+    }
+    else
+    {
+        std::cout << "Could not add Mane. Invalid or duplicate ID." << std::endl;
+    }
+
+    if (manager.addStudent(Student(1, "Duplicate Ani", 70.0)))
+    {
+        std::cout << "Student added successfully: Duplicate Ani" << std::endl;
+    }
+    else
+    {
+        std::cout << "Could not add Duplicate Ani. Invalid or duplicate ID." << std::endl;
+    }
 
     printSectionTitle("Current Students");
 
@@ -45,86 +71,81 @@ int main()
 
     printSectionTitle("Searching Students");
 
-    int aniIndex = manager.findStudentIndexByName("Ani");
+    int aniIndex = manager.findStudentIndexById(1);
 
     if (aniIndex != -1)
     {
-        std::cout << "Ani found at index: " << aniIndex << std::endl;
+        std::cout << "Student with ID 1 found at index: " << aniIndex << std::endl;
     }
     else
     {
-        std::cout << "Ani was not found." << std::endl;
+        std::cout << "Student with ID 1 was not found." << std::endl;
     }
 
-    int davidIndex = manager.findStudentIndexByName("David");
+    int missingIndex = manager.findStudentIndexById(999);
 
-    if (davidIndex != -1)
+    if (missingIndex != -1)
     {
-        std::cout << "David found at index: " << davidIndex << std::endl;
+        std::cout << "Student with ID 999 found at index: " << missingIndex << std::endl;
     }
     else
     {
-        std::cout << "David was not found." << std::endl;
+        std::cout << "Student with ID 999 was not found." << std::endl;
     }
 
     printSectionTitle("Updating Student Scores");
 
-    if (manager.updateStudentScore("Mane", 99.0))
+    if (manager.updateStudentScoreById(3, 99.0))
     {
-        std::cout << "Successfully updated Mane's score." << std::endl;
+        std::cout << "Successfully updated score for student ID 3." << std::endl;
     }
     else
     {
-        std::cout << "Could not update Mane. Student not found." << std::endl;
+        std::cout << "Could not update student ID 3. Student not found." << std::endl;
     }
 
-    if (manager.updateStudentScore("David", 90.0))
+    if (manager.updateStudentScoreById(999, 90.0))
     {
-        std::cout << "Successfully updated David's score." << std::endl;
+        std::cout << "Successfully updated score for student ID 999." << std::endl;
     }
     else
     {
-        std::cout << "Could not update David. Student not found." << std::endl;
+        std::cout << "Could not update student ID 999. Student not found." << std::endl;
     }
 
-    if (manager.updateStudentScore("Aram", 150.0))
+    if (manager.updateStudentScoreById(2, 150.0))
     {
-        std::cout << "Updated Aram's score, but invalid score was converted to 0." << std::endl;
+        std::cout << "Updated score for student ID 2, but invalid score was converted to 0." << std::endl;
     }
     else
     {
-        std::cout << "Could not update Aram. Student not found." << std::endl;
+        std::cout << "Could not update student ID 2. Student not found." << std::endl;
     }
 
     printSectionTitle("Students After Updates");
     manager.printAll();
 
     printSectionTitle("Statistics");
-
     manager.printStatistics();
-
-    std::cout << "Best student index: "
-        << manager.findBestStudentIndex()
-        << std::endl;
 
     printSectionTitle("Removing Students");
 
-    if (manager.removeStudentByName("Ani"))
+    if (manager.removeStudentById(1))
     {
-        std::cout << "Successfully removed student: Ani" << std::endl;
+        std::cout << "Successfully removed student with ID 1." << std::endl;
     }
     else
     {
-        std::cout << "Could not remove Ani. Student not found." << std::endl;
+        std::cout << "Could not remove student with ID 1. Student not found." << std::endl;
     }
 
-    if (manager.removeStudentByName("David"))
+    if (manager.removeStudentById(999))
     {
-        std::cout << "Successfully removed student: David" << std::endl;
+        std::cout << "Successfully removed student with ID 999." << std::endl;
     }
     else
     {
-        std::cout << "Could not remove David. Student not found." << std::endl;
+        std::cout << "Could not remove student with ID 999. Student not found." << std::endl;
     }
 
     std::cout << "Student count after removal: "
@@ -135,7 +156,6 @@ int main()
     manager.printAll();
 
     std::cout << "\nProgram finished successfully." << std::endl;
-
 
     return 0;
 
