@@ -9,9 +9,11 @@ Student::Student()
 }
 
 Student::Student(int id, const std::string& name, double score)
-	: id(0), name(name), score(0.0)
+	: id(0), name("Unknown"), score(0.0)
 {
 	setId(id);
+
+	setName(name);
 
 	setScore(score);
 
@@ -54,7 +56,14 @@ void Student::setId(int id)
 
 void Student::setName(const std::string& name)
 {
-	this->name = name;
+	if (name.empty())
+	{
+		this->name = "Unknown";
+	}
+	else
+	{
+		this->name = name;
+	}
 
 }
 
@@ -75,7 +84,8 @@ void Student::setScore(double score)
 
 std::ostream& operator<<(std::ostream& out, const Student& student)
 {
-	out << "Student{Name: " << student.name
+	out << "Student{ID: " << student.id
+		<< ", Name: " << student.name
 		<< ", Score: " << student.score
 		<< "}";
 

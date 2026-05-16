@@ -185,6 +185,25 @@ bool StudentManager::updateStudentScore(const std::string& name, double newScore
 
 
 
+void StudentManager::printStudentById(int id) const
+{
+	int index = findStudentIndexById(id);
+
+	if (index == -1)
+	{
+		std::cout << "Student with ID "
+			<< id
+			<< " was not found."
+			<< std::endl;
+
+		return;
+	}
+
+	std::cout << "Student found: "
+		<< students[index]
+		<< std::endl;
+}
+
 void StudentManager::printBestStudent() const
 {
 	int bestIndex = findBestStudentIndex();
@@ -200,6 +219,22 @@ void StudentManager::printBestStudent() const
 	std::cout << "Best student: "
 		<< students[bestIndex]
 		<< std::endl;
+
+}
+
+void StudentManager::printStudentCount() const
+{
+	std::cout << "Student count: "
+		<< getCount()
+		<< std::endl;
+
+}
+
+void StudentManager::printAllStudentsWithHeader() const
+{
+	printStudentCount();
+
+	printAll();
 
 }
 

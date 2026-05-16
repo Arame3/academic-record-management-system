@@ -43,7 +43,13 @@ public:
 	bool updateStudentScore(const std::string& name, double newScore);
 
 
+	void printStudentById(int id) const;
+
 	void printBestStudent() const;
+
+	void printStudentCount() const;
+
+	void printAllStudentsWithHeader() const;
 
 	void printStatistics() const;
 
