@@ -5,12 +5,15 @@
 #include "StudentManager.h"
 
 
+
 static void printSectionTitle(const std::string& title)
 {
     std::cout << "\n============================================================" << std::endl;
     std::cout << "                    " << title << std::endl;
     std::cout << "============================================================" << std::endl;
+
 }
+
 
 
 void addStudentAndPrintResult(StudentManager& manager, const Student& student)
@@ -31,6 +34,7 @@ void addStudentAndPrintResult(StudentManager& manager, const Student& student)
             << ". Invalid or duplicate ID."
             << std::endl;
     }
+
 }
 
 
@@ -100,8 +104,16 @@ int main()
     printSectionTitle("Students After Updates");
     manager.printAllStudentsWithHeader();
 
+    double passingScore = 50.0;
+
     printSectionTitle("Statistics");
-    manager.printStatistics();
+    manager.printStatistics(passingScore);
+
+    printSectionTitle("Passed Students");
+    manager.printPassedStudents(passingScore);
+
+    printSectionTitle("Failed Students");
+    manager.printFailedStudents(passingScore);
 
     printSectionTitle("Removing Students");
 

@@ -37,6 +37,7 @@ public:
 	int findBestStudentIndex() const;
 
 
+
 	bool addStudent(const Student& student);
 
 	bool removeStudentById(int id);
@@ -48,15 +49,20 @@ public:
 	bool updateStudentScore(const std::string& name, double newScore);
 
 
+
 	void printStudentById(int id) const;
 
 	void printBestStudent() const;
 
 	void printStudentCount() const;
 
+	void printPassedStudents(double passingScore) const;
+
+	void printFailedStudents(double passingScore) const;
+
 	void printAllStudentsWithHeader() const;
 
-	void printStatistics() const;
+	void printStatistics(double passingScore) const;
 
 	void printAll() const;
 

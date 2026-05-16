@@ -266,6 +266,72 @@ void StudentManager::printStudentCount() const
 
 }
 
+void StudentManager::printPassedStudents(double passingScore) const
+{
+	if (isEmpty())
+	{
+		std::cout << "No students found."
+			<< std::endl;
+
+		return;
+	}
+
+	bool found = false;
+
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < count; i++)
+	{
+		if (students[i].hasPassingScore(passingScore))
+		{
+			std::cout << students[i]
+				<< std::endl;
+
+			found = true;
+		}
+	}
+
+	if (!found)
+	{
+		std::cout << "No passed students found."
+			<< std::endl;
+	}
+
+}
+
+void StudentManager::printFailedStudents(double passingScore) const
+{
+	if (isEmpty())
+	{
+		std::cout << "No students found."
+			<< std::endl;
+
+		return;
+	}
+
+	bool found = false;
+
+	int count = static_cast<int>(students.size());
+
+	for (int i = 0; i < count; i++)
+	{
+		if (!students[i].hasPassingScore(passingScore))
+		{
+			std::cout << students[i]
+				<< std::endl;
+
+			found = true;
+		}
+	}
+
+	if (!found)
+	{
+		std::cout << "No failed students found."
+			<< std::endl;
+	}
+
+}
+
 void StudentManager::printAllStudentsWithHeader() const
 {
 	printStudentCount();
@@ -274,7 +340,7 @@ void StudentManager::printAllStudentsWithHeader() const
 	 
 }
 
-void StudentManager::printStatistics() const
+void StudentManager::printStatistics(double passingScore) const
 {
 	if (isEmpty())
 	{
@@ -284,7 +350,6 @@ void StudentManager::printStatistics() const
 		return;
 	}
 
-	double passingScore = 50.0;
 
 	std::cout << "Student count: "
 		<< getCount()
