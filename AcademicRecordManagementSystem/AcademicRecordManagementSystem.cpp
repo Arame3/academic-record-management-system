@@ -41,6 +41,7 @@ static int readMenuChoice()
     std::cin >> choice;
 
     return choice;
+
 }
 
 
@@ -48,6 +49,44 @@ static int readMenuChoice()
 static bool isValidMenuChoice(int choice)
 {
     return choice >= 0 && choice <= 7;
+
+}
+
+
+
+static int readStudentId()
+{
+    int id = 0;
+
+    std::cout << "Enter student ID: ";
+    std::cin >> id;
+
+    return id;
+
+}
+
+
+static std::string readStudentName()
+{
+    std::string name;
+
+    std::cout << "Enter student name: ";
+    std::cin.ignore();
+    std::getline(std::cin, name);
+
+    return name;
+
+}
+
+
+static double readStudentScore()
+{
+    double score = 0.0;
+
+    std::cout << "Enter student score: ";
+    std::cin >> score;
+
+    return score;
 
 }
 
@@ -64,8 +103,23 @@ static void handleMenuChoice(
     {
 
     case 1:
-        std::cout << "Add student selected." << std::endl;
+    {
+        int id = readStudentId();
+
+        std::string name = readStudentName();
+
+        double score = readStudentScore();
+
+        addStudentAndPrintResult(manager, Student(id, name, score));
+
+        if (score < 0.0 || score > 100.0)
+        {
+            std::cout << "Note: Invalid score was converted to 0." << std::endl;
+        }
+
         break;
+
+    }
 
 
     case 2:
@@ -75,23 +129,54 @@ static void handleMenuChoice(
 
 
     case 3:
-        std::cout << "Search student by ID selected." << std::endl;
+    {
+        int id = readStudentId();
+
+        manager.printStudentById(id);
+
         break;
 
+    }
 
     case 4:
-        std::cout << "Update student name selected." << std::endl;
+    {
+        int id = readStudentId();
+
+        std::string newName = readStudentName();
+
+        updateStudentNameAndPrintResult(manager, id, newName);
+
         break;
 
+    }
 
     case 5:
-        std::cout << "Update student score selected." << std::endl;
+    {
+        int id = readStudentId();
+
+        double newScore = readStudentScore();
+
+        updateStudentScoreAndPrintResult(manager, id, newScore);
+
+        if (newScore < 0.0 || newScore > 100.0)
+        {
+            std::cout << "Note: Invalid score was converted to 0." << std::endl;
+        }
+
         break;
+
+    }
 
 
     case 6:
-        std::cout << "Remove student selected." << std::endl;
+    {
+        int id = readStudentId();
+
+        removeStudentAndPrintResult(manager, id);
+
         break;
+
+    }
 
 
     case 7:
@@ -232,19 +317,25 @@ int main()
     printSectionTitle("Loading Demo Data");
     loadDemoData(manager);
 
-    printMainMenu();
 
-    int menuChoice = readMenuChoice();
+    int menuChoice = -1;
 
-    if (isValidMenuChoice(menuChoice))
+    while (menuChoice != 0)
     {
-        std::cout << std::endl;
-        handleMenuChoice(menuChoice, manager, passingScore, excellentScore);
-    }
-    else
-    {
-        std::cout << "\nInvalid menu option. Please choose a number from 0 to 7."
-            << std::endl;
+        printMainMenu();
+
+        menuChoice = readMenuChoice();
+
+        if (isValidMenuChoice(menuChoice))
+        {
+            std::cout << std::endl;
+            handleMenuChoice(menuChoice, manager, passingScore, excellentScore);
+        }
+        else
+        {
+            std::cout << "\nInvalid menu option. Please choose a number from 0 to 7."
+                << std::endl;
+        }
     }
 
     std::cout << std::endl
