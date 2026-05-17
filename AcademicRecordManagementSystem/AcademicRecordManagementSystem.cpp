@@ -229,6 +229,9 @@ int main()
     double passingScore = 40.0;
     double excellentScore = 90.0;
 
+    printSectionTitle("Loading Demo Data");
+    loadDemoData(manager);
+
     printMainMenu();
 
     int menuChoice = readMenuChoice();
@@ -244,28 +247,9 @@ int main()
             << std::endl;
     }
 
-
     std::cout << std::endl
         << std::endl;
 
-    printSectionTitle("Initial Student List");
-    manager.printAllStudentsWithHeader();
-
-    printSectionTitle("Adding Students");
-
-    addStudentAndPrintResult(manager, Student(1, "Ani", 95.5));
-
-    addStudentAndPrintResult(manager, Student(2, "Aram", 150.0));
-    std::cout << "Warning: Invalid score for Aram was converted to 0." << std::endl;
-
-    addStudentAndPrintResult(manager, Student(3, "Mane", 88.5));
-
-    addStudentAndPrintResult(manager, Student(4, "", 77.0));
-    std::cout << "Note: Empty student name was converted to Unknown." << std::endl;
-
-    addStudentAndPrintResult(manager, Student(0, "Invalid ID Student", 80.0));
-
-    addStudentAndPrintResult(manager, Student(1, "Duplicate Ani", 70.0));
 
     printSectionTitle("Current Students");
     manager.printAllStudentsWithHeader();
@@ -276,6 +260,7 @@ int main()
 
     manager.printStudentById(999);
 
+
     printSectionTitle("Updating Student Names");
 
     updateStudentNameAndPrintResult(manager, 4, "Narek");
@@ -285,8 +270,10 @@ int main()
     updateStudentNameAndPrintResult(manager, 3, "");
     std::cout << "Note: Empty name for student ID 3 was converted to Unknown." << std::endl;
 
+
     printSectionTitle("Students After Name Updates");
     manager.printAllStudentsWithHeader();
+
 
     printSectionTitle("Updating Student Scores");
 
@@ -297,17 +284,21 @@ int main()
     updateStudentScoreAndPrintResult(manager, 2, 150.0);
     std::cout << "Note: Invalid score for student ID 2 was converted to 0." << std::endl;
 
+
     printSectionTitle("Students After Score Updates");
     manager.printAllStudentsWithHeader();
 
+
     printSectionTitle("Academic Report");
     manager.printAcademicReport(passingScore, excellentScore);
+
 
     printSectionTitle("Removing Students");
 
     removeStudentAndPrintResult(manager, 1);
 
     removeStudentAndPrintResult(manager, 999);
+
 
     printSectionTitle("Final Student List");
     manager.printAllStudentsWithHeader();
