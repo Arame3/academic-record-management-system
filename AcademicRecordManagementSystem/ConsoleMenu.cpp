@@ -1,5 +1,7 @@
 #include "ConsoleMenu.h"
 
+#include "InputValidator.h"
+
 #include <iostream>
 
 void ConsoleMenu::printWelcomeMessage() const
@@ -37,7 +39,7 @@ int ConsoleMenu::readMenuChoice() const
 
 bool ConsoleMenu::isValidMenuChoice(int choice) const
 {
-    return choice >= 0 && choice <= 7;
+    return InputValidator::isMenuChoiceInRange(choice, 0, 7);
 
 }
 
