@@ -1,0 +1,57 @@
+#include "ConsoleMenu.h"
+
+#include <iostream>
+
+void ConsoleMenu::printWelcomeMessage() const
+{
+    std::cout << "\nWelcome to Academic Record Management System!" << std::endl;
+    std::cout << "Manage students, update records, and generate academic reports." << std::endl;
+
+}
+
+void ConsoleMenu::printMainMenu() const
+{
+    std::cout << "\nMain Menu" << std::endl;
+    std::cout << "---------" << std::endl;
+    std::cout << "1. Add student" << std::endl;
+    std::cout << "2. Show all students" << std::endl;
+    std::cout << "3. Search student by ID" << std::endl;
+    std::cout << "4. Update student name" << std::endl;
+    std::cout << "5. Update student score" << std::endl;
+    std::cout << "6. Remove student" << std::endl;
+    std::cout << "7. Show academic report" << std::endl;
+    std::cout << "0. Exit" << std::endl;
+    std::cout << "Choose an option: ";
+
+}
+
+
+int ConsoleMenu::readMenuChoice() const
+{
+    int choice = -1;
+    std::cin >> choice;
+    return choice;
+
+}
+
+
+bool ConsoleMenu::isValidMenuChoice(int choice) const
+{
+    return choice >= 0 && choice <= 7;
+
+}
+
+void ConsoleMenu::printInvalidMenuChoiceMessage() const
+{
+    std::cout << "\nInvalid menu option. Please choose a number from 0 to 7."
+        << std::endl;
+
+}
+
+
+void ConsoleMenu::printGoodbyeMessage() const
+{
+    std::cout << "\nThank you for using Academic Record Management System." << std::endl;
+    std::cout << "Program finished successfully." << std::endl;
+
+}
