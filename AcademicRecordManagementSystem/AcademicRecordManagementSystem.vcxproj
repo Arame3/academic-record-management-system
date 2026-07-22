@@ -133,6 +133,7 @@
     <ClCompile Include="InputValidator.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Student.cpp" />
+    <ClCompile Include="StudentFileStorage.cpp" />
     <ClCompile Include="StudentManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="InputValidator.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="StudentFileStorage.h" />
     <ClInclude Include="StudentManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
