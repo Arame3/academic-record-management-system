@@ -130,6 +130,7 @@
     <ClCompile Include="AcademicPolicy.cpp" />
     <ClCompile Include="AcademicRecordManagementSystem.cpp" />
     <ClCompile Include="ConsoleMenu.cpp" />
+    <ClCompile Include="InputValidator.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="StudentManager.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="AcademicPolicy.h" />
     <ClInclude Include="ConsoleMenu.h" />
+    <ClInclude Include="InputValidator.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentManager.h" />
