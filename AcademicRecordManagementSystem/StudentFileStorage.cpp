@@ -29,32 +29,44 @@ bool StudentFileStorage::saveToCsv(const std::string& filePath, const std::vecto
 }
 
 
-std::vector<Student> StudentFileStorage::loadFromCsv(const std::string& filePath)
+StudentFileLoadResult StudentFileStorage::loadFromCsv(
+    const std::string& filePath
+)
 {
-    std::vector<Student> students;
+    StudentFileLoadResult result;
 
     std::ifstream inputFile(filePath);
 
     if (!inputFile.is_open())
     {
-        return students;
+        return result;
     }
+
+    result.fileOpened = true;
 
     std::string line;
 
+    // Skip CSV header.
     std::getline(inputFile, line);
 
     while (std::getline(inputFile, line))
     {
+        ++result.processedLineCount;
+
         Student student;
 
         if (tryParseStudentLine(line, student))
         {
-            students.push_back(student);
+            result.students.push_back(student);
+            ++result.loadedCount;
+        }
+        else
+        {
+            ++result.rejectedCount;
         }
     }
 
-    return students;
+    return result;
 }
 
 

@@ -135,6 +135,7 @@
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="StudentFileStorage.cpp" />
     <ClCompile Include="StudentManager.cpp" />
+    <ClCompile Include="StudentPersistenceService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcademicPolicy.h" />
@@ -142,8 +143,12 @@
     <ClInclude Include="InputValidator.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="StudentFileLoadResult.h" />
     <ClInclude Include="StudentFileStorage.h" />
+    <ClInclude Include="StudentImportResult.h" />
     <ClInclude Include="StudentManager.h" />
+    <ClInclude Include="StudentPersistenceLoadResult.h" />
+    <ClInclude Include="StudentPersistenceService.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

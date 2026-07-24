@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Student.h"
+#include "StudentImportResult.h"
 
 class StudentManager
 {
@@ -19,6 +20,8 @@ public:
 	int getCount() const;
 
 	bool isEmpty() const;
+
+	const std::vector<Student>& getStudents() const;
 
 	bool isScoreValid(double score) const;
 
@@ -51,6 +54,12 @@ public:
 
 
 	bool addStudent(const Student& student);
+
+	StudentImportResult importStudents
+	(
+		const std::vector<Student>& studentsToImport
+
+	);
 
 	bool removeStudentById(int id);
 

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Student.h"
+#include "StudentFileLoadResult.h"
 
 class StudentFileStorage
 {
@@ -16,5 +17,9 @@ public:
 
     static bool saveToCsv(const std::string& filePath, const std::vector<Student>& students);
 
-    static std::vector<Student> loadFromCsv(const std::string& filePath);
+    static StudentFileLoadResult loadFromCsv
+    (
+        const std::string& filePath
+    );
+
 };

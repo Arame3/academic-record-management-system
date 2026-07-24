@@ -23,6 +23,12 @@ bool StudentManager::isEmpty() const
 
 }
 
+const std::vector<Student>& StudentManager::getStudents() const
+{
+	return students;
+
+}
+
 bool StudentManager::isScoreValid(double score) const
 {
 	return score >= 0.0 && score <= 100.0;
@@ -254,6 +260,29 @@ bool StudentManager::addStudent(const Student& student)
 
 	return true;
 
+}
+
+StudentImportResult StudentManager::importStudents(
+	const std::vector<Student>& studentsToImport
+)
+{
+	StudentImportResult result;
+
+	result.receivedCount = studentsToImport.size();
+
+	for (const Student& student : studentsToImport)
+	{
+		if (addStudent(student))
+		{
+			++result.importedCount;
+		}
+		else
+		{
+			++result.rejectedCount;
+		}
+	}
+
+	return result;
 }
 
 bool StudentManager::removeStudentById(int id)
