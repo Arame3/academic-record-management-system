@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class ConsoleMenu
 {
 public:
@@ -15,4 +17,8 @@ public:
     void printInvalidMenuChoiceMessage() const;
 
     void printGoodbyeMessage() const;
+
+
+    std::string readFilePath() const;
+
 };

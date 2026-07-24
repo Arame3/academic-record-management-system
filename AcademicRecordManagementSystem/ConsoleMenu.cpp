@@ -22,6 +22,8 @@ void ConsoleMenu::printMainMenu() const
     std::cout << "5. Update student score" << std::endl;
     std::cout << "6. Remove student" << std::endl;
     std::cout << "7. Show academic report" << std::endl;
+    std::cout << "8. Save students to CSV" << std::endl;
+    std::cout << "9. Load students from CSV" << std::endl;
     std::cout << "0. Exit" << std::endl;
     std::cout << "Choose an option: ";
 
@@ -39,13 +41,13 @@ int ConsoleMenu::readMenuChoice() const
 
 bool ConsoleMenu::isValidMenuChoice(int choice) const
 {
-    return InputValidator::isMenuChoiceInRange(choice, 0, 7);
+    return InputValidator::isMenuChoiceInRange(choice, 0, 9);
 
 }
 
 void ConsoleMenu::printInvalidMenuChoiceMessage() const
 {
-    std::cout << "\nInvalid menu option. Please choose a number from 0 to 7."
+    std::cout << "\nInvalid menu option. Please choose a number from 0 to 9."
         << std::endl;
 
 }
@@ -56,4 +58,15 @@ void ConsoleMenu::printGoodbyeMessage() const
     std::cout << "\nThank you for using Academic Record Management System." << std::endl;
     std::cout << "Program finished successfully." << std::endl;
 
+}
+
+
+std::string ConsoleMenu::readFilePath() const
+{
+    std::string filePath;
+
+    std::cout << "Enter CSV file path: ";
+    std::getline(std::cin >> std::ws, filePath);
+
+    return filePath;
 }
