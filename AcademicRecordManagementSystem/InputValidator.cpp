@@ -1,24 +1,91 @@
 #include "InputValidator.h"
 
-bool InputValidator::isValidId(int id)
+#include <algorithm>
+#include <cctype>
+
+
+bool InputValidator::isValidId
+(
+	int id
+)
 {
-    return id > 0;
+	return id > 0;
+
 }
 
 
-bool InputValidator::isValidScore(double score)
+bool InputValidator::isValidScore
+(
+	double score
+)
 {
-    return score >= 0.0 && score <= 100.0;
+	return score >= 0.0 && score <= 100.0;
+
 }
 
 
-bool InputValidator::isValidName(const std::string& name)
+bool InputValidator::isBlank
+(
+	const std::string& value
+
+)
 {
-    return !name.empty();
+	if (value.empty())
+	{
+		return true;
+
+	}
+
+	return std::all_of
+	(
+		value.begin(),
+		value.end(),
+		[]
+		(
+			unsigned char character
+		)
+		{
+			return std::isspace(character) != 0;
+
+		}
+	);
+
 }
 
 
-bool InputValidator::isMenuChoiceInRange(int choice, int minChoice, int maxChoice)
+bool InputValidator::isNotBlank
+(
+	const std::string& value
+
+)
 {
-    return choice >= minChoice && choice <= maxChoice;
+	return !isBlank(value);
+
+}
+
+
+bool InputValidator::isValidName
+(
+	const std::string& name
+
+)
+{
+	return isNotBlank(name);
+
+
+}
+
+
+bool InputValidator::isMenuChoiceInRange
+(
+	int choice,
+
+	int minimumChoice,
+
+	int maximumChoice
+)
+{
+	return choice >= minimumChoice
+		&& choice <= maximumChoice;
+
 }

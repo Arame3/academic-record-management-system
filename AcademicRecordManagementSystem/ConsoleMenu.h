@@ -2,23 +2,26 @@
 
 #include <string>
 
+
 class ConsoleMenu
 {
 public:
 
-    void printWelcomeMessage() const;
+	void printWelcomeMessage() const;
 
-    void printMainMenu() const;
+	void printMainMenu() const;
 
-    int readMenuChoice() const;
+	int readMenuChoice() const;
 
-    bool isValidMenuChoice(int choice) const;
+	std::string readFilePath() const;
 
-    void printInvalidMenuChoiceMessage() const;
+	bool isValidMenuChoice
+	(
+		int choice
+	) const;
 
-    void printGoodbyeMessage() const;
+	void printInvalidMenuChoiceMessage() const;
 
-
-    std::string readFilePath() const;
+	void printGoodbyeMessage() const;
 
 };
