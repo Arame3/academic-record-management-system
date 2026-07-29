@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.8.12009.203 stable
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AcademicRecordManagementSystem", "AcademicRecordManagementSystem.vcxproj", "{CBE2B43E-43CC-4294-A7FD-2020350A6738}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AcademicRecordManagementSystem.Tests", "..\tests\AcademicRecordManagementSystem.Tests\AcademicRecordManagementSystem.Tests.vcxproj", "{7E5F54EE-F67D-41C5-8CA1-8F2911D7CCDA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AcademicRecordManagementSystem.Core", "..\..\academic-record-management-system.core\AcademicRecordManagementSystem.Core\AcademicRecordManagementSystem.Core.vcxproj", "{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AcademicRecordManagementSystem.Core", "..\src\AcademicRecordManagementSystem.Core\AcademicRecordManagementSystem.Core.vcxproj", "{0559534D-B329-4212-B6D3-56F5A7DF91B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +33,14 @@ Global
 		{7E5F54EE-F67D-41C5-8CA1-8F2911D7CCDA}.Release|x64.Build.0 = Release|x64
 		{7E5F54EE-F67D-41C5-8CA1-8F2911D7CCDA}.Release|x86.ActiveCfg = Release|Win32
 		{7E5F54EE-F67D-41C5-8CA1-8F2911D7CCDA}.Release|x86.Build.0 = Release|Win32
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Debug|x64.ActiveCfg = Debug|x64
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Debug|x64.Build.0 = Debug|x64
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Debug|x86.ActiveCfg = Debug|Win32
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Debug|x86.Build.0 = Debug|Win32
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Release|x64.ActiveCfg = Release|x64
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Release|x64.Build.0 = Release|x64
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Release|x86.ActiveCfg = Release|Win32
-		{076725FB-A9A4-480B-AB45-2DF1CC5BC9FD}.Release|x86.Build.0 = Release|Win32
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Debug|x64.ActiveCfg = Debug|x64
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Debug|x64.Build.0 = Debug|x64
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Debug|x86.ActiveCfg = Debug|Win32
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Debug|x86.Build.0 = Debug|Win32
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Release|x64.ActiveCfg = Release|x64
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Release|x64.Build.0 = Release|x64
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Release|x86.ActiveCfg = Release|Win32
+		{0559534D-B329-4212-B6D3-56F5A7DF91B9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
