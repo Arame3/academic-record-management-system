@@ -13,3 +13,16 @@ TEST
 	EXPECT_EQ(student.getName(), "Arame");
 	EXPECT_DOUBLE_EQ(student.getScore(), 95.5);
 }
+
+TEST
+(
+	StudentTests,
+	ParameterizedConstructorReplacesInvalidValues
+)
+{
+	Student student(-5, "", 120.0);
+
+	EXPECT_EQ(student.getId(), 0);
+	EXPECT_EQ(student.getName(), "Unknown");
+	EXPECT_DOUBLE_EQ(student.getScore(), 0.0);
+}
