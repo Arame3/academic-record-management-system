@@ -1,8 +1,12 @@
 #include "pch.h"
 
+#include <filesystem>
+#include <fstream>
+
 #include "Student.h"
 #include "StudentManager.h"
 #include "AcademicPolicy.h"
+#include "StudentPersistenceService.h"
 
 TEST
 (
@@ -86,5 +90,132 @@ TEST
 		policy.scoreCategoryToString(ScoreCategory::Excellent),
 		"Excellent"
 	);
+
+}
+
+TEST
+(
+	StudentPersistenceServiceTests,
+	SavesLoadsAndRejectsInvalidRecords
+)
+{
+	const std::filesystem::path csvPath =
+		std::filesystem::temp_directory_path()
+		/ "academic_record_persistence_test.csv";
+
+	const std::filesystem::path logPath =
+		std::filesystem::temp_directory_path()
+		/ "academic_record_persistence_test.log";
+
+	std::filesystem::remove(csvPath);
+	std::filesystem::remove(logPath);
+
+	{
+		Logger logger(logPath.string());
+
+		ASSERT_TRUE(logger.isOpen());
+
+		StudentManager sourceManager;
+
+		ASSERT_TRUE
+		(
+			sourceManager.addStudent
+			(
+				Student(1, "Arame", 88.0)
+			)
+		);
+
+		ASSERT_TRUE
+		(
+			sourceManager.addStudent
+			(
+				Student(2, "Anna", 95.0)
+			)
+		);
+
+		StudentPersistenceService saveService
+		(
+			sourceManager,
+			logger
+		);
+
+		ASSERT_TRUE
+		(
+			saveService.saveStudentsToCsv
+			(
+				csvPath.string()
+			)
+		);
+
+		{
+			std::ofstream csvFile
+			(
+				csvPath,
+				std::ios::app
+			);
+
+			ASSERT_TRUE(csvFile.is_open());
+
+			csvFile << "2,Duplicate,70" << std::endl;
+			csvFile << "invalid,row" << std::endl;
+		}
+
+		StudentManager loadedManager;
+
+		StudentPersistenceService loadService
+		(
+			loadedManager,
+			logger
+		);
+
+		StudentPersistenceLoadResult result =
+			loadService.loadStudentsFromCsv
+			(
+				csvPath.string()
+			);
+
+		EXPECT_TRUE(result.wasFileOpened());
+
+		EXPECT_EQ
+		(
+			result.fileLoadResult.processedLineCount,
+			4
+		);
+
+		EXPECT_EQ
+		(
+			result.fileLoadResult.loadedCount,
+			3
+		);
+
+		EXPECT_EQ
+		(
+			result.fileLoadResult.rejectedCount,
+			1
+		);
+
+		EXPECT_EQ
+		(
+			result.importResult.importedCount,
+			2
+		);
+
+		EXPECT_EQ
+		(
+			result.importResult.rejectedCount,
+			1
+		);
+
+		EXPECT_TRUE(result.hasImportedAny());
+		EXPECT_TRUE(result.hasRejectedRecords());
+		EXPECT_FALSE(result.completedWithoutRejections());
+
+		EXPECT_EQ(loadedManager.getCount(), 2);
+		EXPECT_TRUE(loadedManager.hasStudentById(1));
+		EXPECT_TRUE(loadedManager.hasStudentById(2));
+	}
+
+	std::filesystem::remove(csvPath);
+	std::filesystem::remove(logPath);
 
 }

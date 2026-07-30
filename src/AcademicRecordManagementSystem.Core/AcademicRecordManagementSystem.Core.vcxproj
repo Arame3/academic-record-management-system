@@ -144,15 +144,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\AcademicRecordManagementSystem\AcademicPolicy.cpp" />
+    <ClCompile Include="..\..\AcademicRecordManagementSystem\Logger.cpp" />
     <ClCompile Include="..\..\AcademicRecordManagementSystem\Student.cpp" />
+    <ClCompile Include="..\..\AcademicRecordManagementSystem\StudentFileStorage.cpp" />
     <ClCompile Include="..\..\AcademicRecordManagementSystem\StudentManager.cpp" />
+    <ClCompile Include="..\..\AcademicRecordManagementSystem\StudentPersistenceService.cpp" />
     <ClCompile Include="AcademicRecordManagementSystem.Core.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\AcademicRecordManagementSystem\AcademicPolicy.h" />
+    <ClInclude Include="..\..\AcademicRecordManagementSystem\Logger.h" />
     <ClInclude Include="..\..\AcademicRecordManagementSystem\Student.h" />
+    <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentFileLoadResult.h" />
+    <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentFileStorage.h" />
     <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentImportResult.h" />
     <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentManager.h" />
+    <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentPersistenceLoadResult.h" />
+    <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentPersistenceService.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
