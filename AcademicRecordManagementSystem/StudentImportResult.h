@@ -19,7 +19,7 @@ struct StudentImportResult
 
     bool allImported() const
     {
-        return receivedCount > 0 && rejectedCount == 0;
+        return receivedCount > 0 && rejectedCount == 0; 
 
     }
 

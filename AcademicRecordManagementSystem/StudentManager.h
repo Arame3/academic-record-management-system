@@ -10,7 +10,7 @@ class StudentManager
 {
 private:
 
-	std::vector<Student> students;
+	std::vector<Student> students;  
 
 public:
 
