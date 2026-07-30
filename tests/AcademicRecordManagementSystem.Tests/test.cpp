@@ -1,6 +1,8 @@
 #include "pch.h"
+
 #include "Student.h"
 #include "StudentManager.h"
+#include "AcademicPolicy.h"
 
 TEST
 (
@@ -58,5 +60,31 @@ TEST
 	EXPECT_TRUE(manager.removeStudentById(1));
 	EXPECT_FALSE(manager.hasStudentById(1));
 	EXPECT_EQ(manager.getCount(), 1);
+
+}
+
+TEST
+(
+	AcademicPolicyTests,
+	ClassifiesScoresUsingConfiguredThresholds
+)
+{
+	AcademicPolicy policy(50.0, 90.0);
+
+	EXPECT_DOUBLE_EQ(policy.getPassingScore(), 50.0);
+	EXPECT_DOUBLE_EQ(policy.getExcellentScore(), 90.0);
+
+	EXPECT_EQ(policy.getScoreCategory(-1.0), ScoreCategory::Invalid);
+	EXPECT_EQ(policy.getScoreCategory(49.0), ScoreCategory::Failed);
+	EXPECT_EQ(policy.getScoreCategory(50.0), ScoreCategory::Passed);
+	EXPECT_EQ(policy.getScoreCategory(89.0), ScoreCategory::Passed);
+	EXPECT_EQ(policy.getScoreCategory(90.0), ScoreCategory::Excellent);
+	EXPECT_EQ(policy.getScoreCategory(101.0), ScoreCategory::Invalid);
+
+	EXPECT_EQ
+	(
+		policy.scoreCategoryToString(ScoreCategory::Excellent),
+		"Excellent"
+	);
 
 }

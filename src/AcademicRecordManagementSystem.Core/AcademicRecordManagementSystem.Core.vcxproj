@@ -143,11 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\AcademicRecordManagementSystem\AcademicPolicy.cpp" />
     <ClCompile Include="..\..\AcademicRecordManagementSystem\Student.cpp" />
     <ClCompile Include="..\..\AcademicRecordManagementSystem\StudentManager.cpp" />
     <ClCompile Include="AcademicRecordManagementSystem.Core.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\AcademicRecordManagementSystem\AcademicPolicy.h" />
     <ClInclude Include="..\..\AcademicRecordManagementSystem\Student.h" />
     <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentImportResult.h" />
     <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentManager.h" />

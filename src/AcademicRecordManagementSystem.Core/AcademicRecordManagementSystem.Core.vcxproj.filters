@@ -24,6 +24,9 @@
     <ClCompile Include="..\..\AcademicRecordManagementSystem\StudentManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\AcademicRecordManagementSystem\AcademicPolicy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\AcademicRecordManagementSystem\Student.h">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\AcademicRecordManagementSystem\StudentImportResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\AcademicRecordManagementSystem\AcademicPolicy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
