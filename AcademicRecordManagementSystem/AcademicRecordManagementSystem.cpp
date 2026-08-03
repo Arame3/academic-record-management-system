@@ -1,14 +1,15 @@
 ﻿#include <iostream>
-#include <limits>
 #include <string>
 
 #include "ConsoleMenu.h"
+#include "CsvFilePathReader.h"
+#include "InputReader.h"
 #include "Logger.h"
 #include "Student.h"
+#include "StudentInputReader.h"
 #include "StudentManager.h"
 #include "StudentPersistenceLoadResult.h"
 #include "StudentPersistenceService.h"
-#include "InputReader.h"
 
 
 static void printSectionTitle
@@ -16,52 +17,15 @@ static void printSectionTitle
 	const std::string& title
 )
 {
-	std::cout << "\n============================================================" << std::endl;
-	std::cout << "                    " << title << std::endl;
-	std::cout << "============================================================" << std::endl;
+	std::cout << "\n============================================================"
+		<< std::endl;
 
-}
+	std::cout << "                    "
+		<< title
+		<< std::endl;
 
-
-static int readStudentId()
-{
-	int id = 0;
-
-	std::cout << "Enter student ID: ";
-	std::cin >> id;
-
-	return id;
-
-}
-
-
-static std::string readStudentName()
-{
-	std::string name;
-
-	std::cout << "Enter student name: ";
-
-	std::cin.ignore
-	(
-		std::numeric_limits<std::streamsize>::max(),
-		'\n'
-	);
-
-	std::getline(std::cin, name);
-
-	return name;
-
-}
-
-
-static double readStudentScore()
-{
-	double score = 0.0;
-
-	std::cout << "Enter student score: ";
-	std::cin >> score;
-
-	return score;
+	std::cout << "============================================================"
+		<< std::endl;
 
 }
 
@@ -98,14 +62,14 @@ static void removeStudentAndPrintResult
 
 static void saveStudentsAndPrintResult
 (
-	ConsoleMenu& menu,
+	CsvFilePathReader& csvFilePathReader,
 	StudentPersistenceService& persistenceService
 );
 
 
 static void loadStudentsAndPrintResult
 (
-	ConsoleMenu& menu,
+	CsvFilePathReader& csvFilePathReader,
 	StudentPersistenceService& persistenceService
 );
 
@@ -114,7 +78,8 @@ static void handleMenuChoice
 (
 	int choice,
 	StudentManager& manager,
-	ConsoleMenu& menu,
+	StudentInputReader& studentInputReader,
+	CsvFilePathReader& csvFilePathReader,
 	StudentPersistenceService& persistenceService,
 	double passingScore,
 	double excellentScore
@@ -124,26 +89,21 @@ static void handleMenuChoice
 	{
 	case 1:
 	{
-		int id = readStudentId();
-		std::string name = readStudentName();
-		double score = readStudentScore();
+		Student student =
+			studentInputReader.readStudent();
 
 		addStudentAndPrintResult
 		(
 			manager,
-			Student(id, name, score)
+			student
 		);
-
-		if (score < 0.0 || score > 100.0)
-		{
-			std::cout << "Note: Invalid score was converted to 0." << std::endl;
-		}
 
 		break;
 	}
 
 	case 2:
-		std::cout << "Showing all students..." << std::endl;
+		std::cout << "Showing all students..."
+			<< std::endl;
 
 		manager.printAllStudentsWithHeader();
 
@@ -151,17 +111,24 @@ static void handleMenuChoice
 
 	case 3:
 	{
-		int id = readStudentId();
+		int id =
+			studentInputReader.readStudentId();
 
-		manager.printStudentById(id);
+		manager.printStudentById
+		(
+			id
+		);
 
 		break;
 	}
 
 	case 4:
 	{
-		int id = readStudentId();
-		std::string newName = readStudentName();
+		int id =
+			studentInputReader.readStudentId();
+
+		std::string newName =
+			studentInputReader.readStudentName();
 
 		updateStudentNameAndPrintResult
 		(
@@ -175,8 +142,11 @@ static void handleMenuChoice
 
 	case 5:
 	{
-		int id = readStudentId();
-		double newScore = readStudentScore();
+		int id =
+			studentInputReader.readStudentId();
+
+		double newScore =
+			studentInputReader.readStudentScore();
 
 		updateStudentScoreAndPrintResult
 		(
@@ -185,17 +155,13 @@ static void handleMenuChoice
 			newScore
 		);
 
-		if (newScore < 0.0 || newScore > 100.0)
-		{
-			std::cout << "Note: Invalid score was converted to 0." << std::endl;
-		}
-
 		break;
 	}
 
 	case 6:
 	{
-		int id = readStudentId();
+		int id =
+			studentInputReader.readStudentId();
 
 		removeStudentAndPrintResult
 		(
@@ -207,7 +173,8 @@ static void handleMenuChoice
 	}
 
 	case 7:
-		std::cout << "Showing academic report..." << std::endl;
+		std::cout << "Showing academic report..."
+			<< std::endl;
 
 		manager.printAcademicReport
 		(
@@ -220,7 +187,7 @@ static void handleMenuChoice
 	case 8:
 		saveStudentsAndPrintResult
 		(
-			menu,
+			csvFilePathReader,
 			persistenceService
 		);
 
@@ -229,19 +196,21 @@ static void handleMenuChoice
 	case 9:
 		loadStudentsAndPrintResult
 		(
-			menu,
+			csvFilePathReader,
 			persistenceService
 		);
 
 		break;
 
 	case 0:
-		std::cout << "Exit selected." << std::endl;
+		std::cout << "Exit selected."
+			<< std::endl;
 
 		break;
 
 	default:
-		std::cout << "Invalid menu option." << std::endl;
+		std::cout << "Invalid menu option."
+			<< std::endl;
 
 		break;
 	}
@@ -282,7 +251,13 @@ static void updateStudentNameAndPrintResult
 	const std::string& newName
 )
 {
-	if (manager.updateStudentNameById(id, newName))
+	if (
+		manager.updateStudentNameById
+		(
+			id,
+			newName
+		)
+		)
 	{
 		std::cout << "Successfully updated name for student ID "
 			<< id
@@ -307,7 +282,13 @@ static void updateStudentScoreAndPrintResult
 	double newScore
 )
 {
-	if (manager.updateStudentScoreById(id, newScore))
+	if (
+		manager.updateStudentScoreById
+		(
+			id,
+			newScore
+		)
+		)
 	{
 		std::cout << "Successfully updated score for student ID "
 			<< id
@@ -331,7 +312,12 @@ static void removeStudentAndPrintResult
 	int id
 )
 {
-	if (manager.removeStudentById(id))
+	if (
+		manager.removeStudentById
+		(
+			id
+		)
+		)
 	{
 		std::cout << "Successfully removed student with ID "
 			<< id
@@ -351,13 +337,19 @@ static void removeStudentAndPrintResult
 
 static void saveStudentsAndPrintResult
 (
-	ConsoleMenu& menu,
+	CsvFilePathReader& csvFilePathReader,
 	StudentPersistenceService& persistenceService
 )
 {
-	std::string filePath = menu.readFilePath();
+	std::string filePath =
+		csvFilePathReader.readOutputPath().string();
 
-	if (persistenceService.saveStudentsToCsv(filePath))
+	if (
+		persistenceService.saveStudentsToCsv
+		(
+			filePath
+		)
+		)
 	{
 		std::cout << "Student records were saved successfully to: "
 			<< filePath
@@ -378,14 +370,18 @@ static void saveStudentsAndPrintResult
 
 static void loadStudentsAndPrintResult
 (
-	ConsoleMenu& menu,
+	CsvFilePathReader& csvFilePathReader,
 	StudentPersistenceService& persistenceService
 )
 {
-	std::string filePath = menu.readFilePath();
+	std::string filePath =
+		csvFilePathReader.readInputPath().string();
 
 	StudentPersistenceLoadResult result =
-		persistenceService.loadStudentsFromCsv(filePath);
+		persistenceService.loadStudentsFromCsv
+		(
+			filePath
+		);
 
 	if (!result.wasFileOpened())
 	{
@@ -399,7 +395,8 @@ static void loadStudentsAndPrintResult
 		return;
 	}
 
-	std::cout << "CSV file processed successfully." << std::endl;
+	std::cout << "CSV file processed successfully."
+		<< std::endl;
 
 	std::cout << "Processed lines: "
 		<< result.fileLoadResult.processedLineCount
@@ -440,56 +437,6 @@ static void loadStudentsAndPrintResult
 }
 
 
-static void loadDemoData
-(
-	StudentManager& manager
-)
-{
-	addStudentAndPrintResult
-	(
-		manager,
-		Student(1, "Ani", 95.5)
-	);
-
-	addStudentAndPrintResult
-	(
-		manager,
-		Student(2, "Aram", 150.0)
-	);
-
-	std::cout << "Warning: Invalid score for Aram was converted to 0."
-		<< std::endl;
-
-	addStudentAndPrintResult
-	(
-		manager,
-		Student(3, "Mane", 88.5)
-	);
-
-	addStudentAndPrintResult
-	(
-		manager,
-		Student(4, "", 77.0)
-	);
-
-	std::cout << "Note: Empty student name was converted to Unknown."
-		<< std::endl;
-
-	addStudentAndPrintResult
-	(
-		manager,
-		Student(0, "Invalid ID Student", 80.0)
-	);
-
-	addStudentAndPrintResult
-	(
-		manager,
-		Student(1, "Duplicate Ani", 70.0)
-	);
-
-}
-
-
 int main()
 {
 	printSectionTitle
@@ -498,8 +445,30 @@ int main()
 	);
 
 	StudentManager manager;
+
 	ConsoleMenu menu;
-	Logger logger("academic_record_system.log");
+
+	InputReader inputReader
+	(
+		std::cin,
+		std::cout
+	);
+
+	StudentInputReader studentInputReader
+	(
+		inputReader
+	);
+
+	CsvFilePathReader csvFilePathReader
+	(
+		inputReader,
+		std::cout
+	);
+
+	Logger logger
+	(
+		"academic_record_system.log"
+	);
 
 	StudentPersistenceService persistenceService
 	(
@@ -507,20 +476,11 @@ int main()
 		logger
 	);
 
-	menu.printWelcomeMessage();
-
 	const double passingScore = 40.0;
+
 	const double excellentScore = 90.0;
 
-	printSectionTitle
-	(
-		"Loading Demo Data"
-	);
-
-	loadDemoData
-	(
-		manager
-	);
+	menu.printWelcomeMessage();
 
 	int menuChoice = -1;
 
@@ -528,26 +488,26 @@ int main()
 	{
 		menu.printMainMenu();
 
-		menuChoice = menu.readMenuChoice();
-
-		if (menu.isValidMenuChoice(menuChoice))
-		{
-			std::cout << std::endl;
-
-			handleMenuChoice
+		menuChoice =
+			inputReader.readNumber<int>
 			(
-				menuChoice,
-				manager,
-				menu,
-				persistenceService,
-				passingScore,
-				excellentScore
+				"",
+				0,
+				9
 			);
-		}
-		else
-		{
-			menu.printInvalidMenuChoiceMessage();
-		}
+
+		std::cout << std::endl;
+
+		handleMenuChoice
+		(
+			menuChoice,
+			manager,
+			studentInputReader,
+			csvFilePathReader,
+			persistenceService,
+			passingScore,
+			excellentScore
+		);
 	}
 
 	menu.printGoodbyeMessage();

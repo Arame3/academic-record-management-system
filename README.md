@@ -2,7 +2,7 @@
 
 Academic Record Management System is a C++17 console application for managing student records, academic results, and CSV-based data persistence.
 
-The project is organized into separate application, core, and testing components. Its main purpose is to demonstrate structured C++ development through domain modeling, validation, file handling, logging, automated testing, and CMake-based project configuration.
+The project is divided into separate application, core, and testing components. It demonstrates structured C++ development through domain modeling, input validation, file handling, logging, automated testing, and CMake-based project configuration.
 
 ## Features
 
@@ -36,8 +36,6 @@ The project is organized into separate application, core, and testing components
 0. Exit
 ```
 
-The application currently loads a small demonstration dataset at startup.
-
 ## Project Architecture
 
 The project is divided into three main targets.
@@ -59,9 +57,18 @@ A static library containing the main domain and business logic:
 The executable application responsible for:
 
 - Console menu output
-- User input
+- Validated user input
+- Student data entry
+- CSV path validation
 - Menu command processing
 - Communication with the core library
+
+The application layer uses the following input-related components:
+
+- `InputReader`
+- `StudentInputReader`
+- `CsvFilePathReader`
+- `ConsoleMenu`
 
 ### AcademicRecordManagementSystemTests
 
@@ -126,17 +133,35 @@ Coordinates:
 - Persistence logging
 - Structured load results
 
+### InputReader
+
+Provides reusable and validated console input for numeric values and non-empty text.
+
+### StudentInputReader
+
+Reads and validates student-specific data:
+
+- Positive student IDs
+- Non-empty student names
+- Scores between `0` and `100`
+
+### CsvFilePathReader
+
+Reads and validates CSV input and output paths before persistence operations are performed.
+
 ## Data Validation
 
 The current implementation applies the following rules:
 
 - Student IDs must be positive
 - Student IDs must be unique within the manager
-- Empty names are normalized to `Unknown`
-- Scores must be between `0` and `100`
-- Scores outside the valid range are normalized to `0`
+- Student names entered through the application must not be empty
+- Empty names passed directly to the `Student` constructor are normalized to `Unknown`
+- Scores entered through the application must be between `0` and `100`
+- Scores outside the valid range are normalized to `0` by the `Student` class
 - Malformed CSV rows are rejected
 - Duplicate IDs found during import are rejected
+- CSV input and output paths are validated before use
 
 ## Requirements
 
@@ -186,21 +211,29 @@ academic_record_system.log
 
 ## Running the Tests
 
+Run the complete test suite with:
+
 ```powershell
 ctest --test-dir build -C Debug --output-on-failure
 ```
 
-The test suite currently covers:
+The current test suite contains five tests and covers:
 
 - Valid student construction
 - Invalid student data normalization
-- Student management workflow
+- Complete student management workflow
 - Duplicate student rejection
 - Student search and update operations
 - Academic score classification
 - CSV save and load operations
 - Malformed CSV row rejection
 - Duplicate ID rejection during import
+
+A successful test run reports:
+
+```text
+100% tests passed, 0 tests failed out of 5
+```
 
 ## Repository Structure
 
@@ -217,23 +250,29 @@ academic-record-management-system/
 └── .gitignore
 ```
 
-The main application source files are stored in `AcademicRecordManagementSystem`.  
+The main application and production source files are stored in `AcademicRecordManagementSystem`.
+
 The `src` directory contains the Visual Studio static library project, while `tests` contains the Google Test project and automated tests.
+
 ## Technical Topics Demonstrated
 
 - C++17
 - Object-oriented programming
 - Encapsulation
 - Separation of concerns
+- Modular architecture
 - Static libraries
 - Standard Library containers
 - File input and output
 - CSV parsing
 - Input validation
+- File path validation
 - Error handling
 - Logging
 - Structured operation results
 - Dependency injection through references
+- Function templates
+- Compile-time type validation
 - Unit testing
 - Integration testing
 - CMake
@@ -243,8 +282,8 @@ The `src` directory contains the Visual Studio static library project, while `te
 
 - The application uses a console-based interface
 - CSV fields containing commas are not currently escaped
-- Demonstration data is loaded automatically at startup
-- The project currently focuses on Windows and Visual Studio workflows
+- Student records must be saved or loaded manually through the application menu
+- The documented executable path is intended for Windows and Visual Studio multi-configuration builds
 
 ## Author
 
