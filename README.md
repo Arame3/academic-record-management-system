@@ -1,110 +1,251 @@
-# \# Academic Record Management System
+# Academic Record Management System
 
-# 
+Academic Record Management System is a C++17 console application for managing student records, academic results, and CSV-based data persistence.
 
-# A modular C++17 console application for managing student academic records, generating academic reports, and saving or loading data through CSV files.
+The project is organized into separate application, core, and testing components. Its main purpose is to demonstrate structured C++ development through domain modeling, validation, file handling, logging, automated testing, and CMake-based project configuration.
 
-# 
+## Features
 
-# \## Features
+- Add students using unique identifiers
+- Display all registered students
+- Search for students by ID
+- Update student names and scores
+- Remove student records
+- Calculate average, highest, and lowest scores
+- Calculate pass rates and student category counts
+- Generate academic reports
+- Save student records to CSV files
+- Load student records from CSV files
+- Reject malformed CSV records
+- Reject duplicate student identifiers during import
+- Log persistence operations and errors
+- Validate menu input and file paths
 
-# 
+## Application Menu
 
-# \- Add students with unique IDs
+```text
+1. Add student
+2. Show all students
+3. Search student by ID
+4. Update student name
+5. Update student score
+6. Remove student
+7. Show academic report
+8. Save students to CSV
+9. Load students from CSV
+0. Exit
+```
 
-# \- Display all student records
+The application currently loads a small demonstration dataset at startup.
 
-# \- Search students by ID
+## Project Architecture
 
-# \- Update student names and scores
+The project is divided into three main targets.
 
-# \- Remove students
+### AcademicRecordManagementSystemCore
 
-# \- Calculate academic statistics
+A static library containing the main domain and business logic:
 
-# \- Generate academic reports
+- `Student`
+- `StudentManager`
+- `AcademicPolicy`
+- `InputValidator`
+- `Logger`
+- `StudentFileStorage`
+- `StudentPersistenceService`
 
-# \- Classify scores as failed, passed, or excellent
+### AcademicRecordManagementSystemApp
 
-# \- Save student records to CSV
+The executable application responsible for:
 
-# \- Load and validate student records from CSV
+- Console menu output
+- User input
+- Menu command processing
+- Communication with the core library
 
-# \- Reject malformed records and duplicate IDs
+### AcademicRecordManagementSystemTests
 
-# \- Log persistence operations and errors
+A Google Test executable containing unit and integration tests for the core functionality.
 
-# \- Validate console input and file paths
+## Main Components
 
-# 
+### Student
 
-# \## Architecture
+Represents a student record containing:
 
-# 
+- Student ID
+- Student name
+- Academic score
 
-# The project separates application responsibilities into distinct modules:
+The class also normalizes invalid constructor values.
 
-# 
+### StudentManager
 
-# \- \*\*Core library\*\* — domain models, business rules, student management, persistence, validation, and logging
+Manages the collection of students and provides:
 
-# \- \*\*Console application\*\* — menu handling and user interaction
+- Add, update, search, and remove operations
+- Duplicate-ID validation
+- Academic statistics
+- Pass and fail calculations
+- Academic report generation
 
-# \- \*\*Test project\*\* — unit and integration tests using Google Test
+### AcademicPolicy
 
-# 
+Defines the score thresholds used to classify students as:
 
-# Important modules include:
+- Failed
+- Passed
+- Excellent
 
-# 
+### StudentFileStorage
 
-# \- `Student`
+Handles CSV serialization and parsing.
 
-# \- `StudentManager`
+The expected CSV format is:
 
-# \- `AcademicPolicy`
+```csv
+id,name,score
+```
 
-# \- `StudentFileStorage`
+Example:
 
-# \- `StudentPersistenceService`
+```csv
+id,name,score
+1,Ani,95.5
+2,Aram,78
+3,Mane,88.5
+```
 
-# \- `InputValidator`
+### StudentPersistenceService
 
-# \- `Logger`
+Coordinates:
 
-# 
+- CSV storage operations
+- Student import operations
+- Duplicate-record rejection
+- Persistence logging
+- Structured load results
 
-# \## Technologies
+## Data Validation
 
-# 
+The current implementation applies the following rules:
 
-# \- C++17
+- Student IDs must be positive
+- Student IDs must be unique within the manager
+- Empty names are normalized to `Unknown`
+- Scores must be between `0` and `100`
+- Scores outside the valid range are normalized to `0`
+- Malformed CSV rows are rejected
+- Duplicate IDs found during import are rejected
 
-# \- CMake 3.20+
+## Requirements
 
-# \- Google Test
+- CMake 3.20 or newer
+- A compiler supporting C++17
+- Git
+- Internet access during the first CMake configuration
 
-# \- Standard Template Library
+On Windows, Visual Studio 2022 with the **Desktop development with C++** workload can be used.
 
-# \- `std::filesystem`
+## Building the Project
 
-# \- Visual Studio 2022
+Clone the repository:
 
-# \- Git and GitHub
+```powershell
+git clone https://github.com/Arame3/academic-record-management-system.git
+cd academic-record-management-system
+```
 
-# 
+Configure the project:
 
-# \## Build with CMake
+```powershell
+cmake -S . -B build
+```
 
-# 
+Build the application and tests:
 
-# Clone the repository:
+```powershell
+cmake --build build --config Debug
+```
 
-# 
+Google Test is downloaded automatically through CMake `FetchContent`.
 
-# ```powershell
+## Running the Application
 
-# git clone https://github.com/Arame3/academic-record-management-system.git
+On Windows using the Visual Studio CMake generator:
 
-# cd academic-record-management-system
+```powershell
+.\build\Debug\AcademicRecordManagementSystemApp.exe
+```
 
+The application creates the following log file in its working directory:
+
+```text
+academic_record_system.log
+```
+
+## Running the Tests
+
+```powershell
+ctest --test-dir build -C Debug --output-on-failure
+```
+
+The test suite currently covers:
+
+- Valid student construction
+- Invalid student data normalization
+- Student management workflow
+- Duplicate student rejection
+- Student search and update operations
+- Academic score classification
+- CSV save and load operations
+- Malformed CSV row rejection
+- Duplicate ID rejection during import
+
+## Repository Structure
+
+```text
+academic-record-management-system/
+├── AcademicRecordManagementSystem/
+│   └── Application and production source files
+├── src/
+│   └── AcademicRecordManagementSystem.Core/
+├── tests/
+│   └── AcademicRecordManagementSystem.Tests/
+├── CMakeLists.txt
+├── README.md
+└── .gitignore
+```
+
+The main application source files are stored in `AcademicRecordManagementSystem`.  
+The `src` directory contains the Visual Studio static library project, while `tests` contains the Google Test project and automated tests.
+## Technical Topics Demonstrated
+
+- C++17
+- Object-oriented programming
+- Encapsulation
+- Separation of concerns
+- Static libraries
+- Standard Library containers
+- File input and output
+- CSV parsing
+- Input validation
+- Error handling
+- Logging
+- Structured operation results
+- Dependency injection through references
+- Unit testing
+- Integration testing
+- CMake
+- Git version control
+
+## Current Limitations
+
+- The application uses a console-based interface
+- CSV fields containing commas are not currently escaped
+- Demonstration data is loaded automatically at startup
+- The project currently focuses on Windows and Visual Studio workflows
+
+## Author
+
+Arame Badalyan
